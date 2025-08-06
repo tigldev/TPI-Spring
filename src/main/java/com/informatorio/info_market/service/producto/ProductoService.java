@@ -1,9 +1,9 @@
-package com.informatorio.info_market.service.producto; // Tu paquete correcto
+package com.informatorio.info_market.service.producto;
 
 import com.informatorio.info_market.domain.Producto;
 import com.informatorio.info_market.dto.producto.ProductoCreateDto;
 import com.informatorio.info_market.dto.producto.ProductoDto;
-import com.informatorio.info_market.dto.DescuentoRequestDTO; // <-- Importa tu DTO de descuento
+import com.informatorio.info_market.dto.DescuentoRequestDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +25,6 @@ public interface ProductoService {
 
     List<ProductoDto> testProductsQueries();
 
-    // --- NUEVO MÉTODO PARA APLICAR DESCUENTO ---
+
     List<Producto> aplicarDescuentoPorMarca(DescuentoRequestDTO descuentoRequest);
 }

@@ -34,7 +34,7 @@ public class ProductoDto {
 
     private List<CategoriaDto> categorias;
 
-    // --- ¡NUEVO CAMPO PARA LA MARCA! ---
+
     @Schema(description = "Marca del producto", example = "L'Oréal")
-    private String marca; // <-- ¡Añade esta línea!
+    private String marca;
 }

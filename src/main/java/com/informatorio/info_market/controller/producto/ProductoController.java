@@ -1,10 +1,10 @@
 package com.informatorio.info_market.controller.producto;
 
-import com.informatorio.info_market.domain.Producto; // <-- Importa la entidad Producto (ya deberías tenerla)
+import com.informatorio.info_market.domain.Producto;
 import com.informatorio.info_market.dto.error.ErrorResponseDto;
 import com.informatorio.info_market.dto.producto.ProductoCreateDto;
 import com.informatorio.info_market.dto.producto.ProductoDto;
-import com.informatorio.info_market.dto.DescuentoRequestDTO; // <-- ¡Importa este DTO!
+import com.informatorio.info_market.dto.DescuentoRequestDTO;
 import com.informatorio.info_market.service.producto.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter; // Puede que no sea estrictamente necesario si solo usas @RequestBody
@@ -15,8 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired; // Ya lo tienes
-import org.springframework.http.HttpStatus; // <-- Importa HttpStatus
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,18 +29,14 @@ import java.util.UUID;
         name = "Productos REST APIs",
         description = "REST APIs del Proyecto para realizar un CRUD de productos"
 )
-@RestController //Anotacion a nivel de clase
+@RestController
 @RequestMapping("/api/v1/productos")
 public class ProductoController {
 
-    @Autowired //Anotacion a nivel de atributo
+    @Autowired
     private ProductoService productoService;
 
-    // Si ya usas @AllArgsConstructor con Lombok en el controlador, @Autowired y el constructor explícito son redundantes.
-    // Si no usas @AllArgsConstructor, mantén el constructor.
-    // public ProductoController(ProductoService productoService) {
-    //     this.productoService = productoService;
-    // }
+
 
     @Operation(
             summary = "Get todos los productos",
@@ -52,7 +48,7 @@ public class ProductoController {
                     description = "HTTP Request Success"
             )
     })
-    @GetMapping()//Anotacion a nivel de metodo
+    @GetMapping()
     public List<ProductoDto> getAllProductos(
             @RequestParam(value = "minStock", defaultValue = "0", required = false) int minStock,
             @RequestParam(value = "minPrice", defaultValue = "0", required = false) Double minPrice,
@@ -177,7 +173,7 @@ public class ProductoController {
     @DeleteMapping("/{productoId}")
     public ResponseEntity<Void> deleteProductoById(@PathVariable UUID productoId) {
         productoService.deleteProducto(productoId);
-        return ResponseEntity.noContent().build(); // Retorna ResponseEntity<Void> para indicar que no hay contenido.
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/query")
@@ -185,7 +181,7 @@ public class ProductoController {
         return productoService.testProductsQueries();
     }
 
-    // --- NUEVO ENDPOINT PARA APLICAR DESCUENTO ---
+
     @Operation(
             summary = "Aplica un descuento a todos los productos de una marca específica.",
             description = "Recibe la marca y el porcentaje de descuento, y actualiza el precio de los productos de esa marca.",
@@ -195,7 +191,7 @@ public class ProductoController {
                             description = "HTTP Status OK - Descuento aplicado correctamente.",
                             content = @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = Producto.class, type = "array") // Devuelve una lista de Producto (entidades)
+                                    schema = @Schema(implementation = Producto.class, type = "array")
                             )
                     ),
                     @ApiResponse(
@@ -216,7 +212,7 @@ public class ProductoController {
                     )
             }
     )
-    @PutMapping("/descuento") // Usamos @PutMapping para actualizar los recursos (productos)
+    @PutMapping("/descuento")
     public ResponseEntity<List<Producto>> aplicarDescuentoPorMarca(
             @Valid @RequestBody DescuentoRequestDTO descuentoRequest) {
 

@@ -1,4 +1,4 @@
-package com.informatorio.info_market.dto; // Asegúrate de que el paquete sea el correcto
+package com.informatorio.info_market.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
